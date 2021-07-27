@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('excerpt');
-            $table->string('body');
+            $table->text('body');
             $table->string('img');
             $table->boolean('premium')->default(false);
             $table->timestamps();

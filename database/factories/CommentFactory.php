@@ -23,6 +23,8 @@ class CommentFactory extends Factory
     {
         return [
             'text' => $this->faker->realText($maxNbChars = 200, $indexSize = 2),
+            'article_id' => rand(1, 10),
+            'user_id' => rand(1, 10)
         ];
     }
 }
