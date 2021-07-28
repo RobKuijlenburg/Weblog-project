@@ -38,11 +38,6 @@ Route::put('/articles/{article}', [ArticlesController::class, 'update'])
 Route::delete('/articles/{article}', [ArticlesController::class, 'destroy'])
     ->name('articles.destroy');
 
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/premium', function () {
     return view('main/premium');
 }) ->name('premium');
