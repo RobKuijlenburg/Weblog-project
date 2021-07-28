@@ -22,7 +22,7 @@ class ArticlesController extends Controller
                 return view('auth.login');
             }
             if(!Auth::user()->premium) {
-                return view('premium');
+                return view('main/premium');
             }
         } 
         return view('main/show', ['article' => $article]);

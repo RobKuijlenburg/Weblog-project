@@ -22,7 +22,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->realText($maxNbChars = 10, $indexSize = 2)
+            'name' => $this->faker->word()
         ];
     }
 }

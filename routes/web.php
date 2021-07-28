@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,10 @@ Route::delete('/articles/{article}', [ArticlesController::class, 'destroy'])
 Route::get('/premium', function () {
     return view('main/premium');
 }) ->name('premium');
+
+Route::put('/user/{user}/premium', [UsersController::class, 'setPremium'])
+    ->name('user.updatePremium');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
