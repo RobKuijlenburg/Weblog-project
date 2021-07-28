@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ArticlesController extends Controller
 {
@@ -14,8 +16,15 @@ class ArticlesController extends Controller
     }
 
     public function show(Article $article){
-        
-    return view('main/show', ['article' => $article]);
-
+    
+        if ($article->premium) {
+            if(!Auth::user()){
+                return view('auth.login');
+            }
+            if(!Auth::user()->premium) {
+                return view('premium');
+            }
+        } 
+        return view('main/show', ['article' => $article]);
     }
 }

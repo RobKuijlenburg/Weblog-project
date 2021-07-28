@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\ArticlesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArticlesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 Route::get('/articles', [ArticlesController::class, 'index'])
+    ->name('articles.index');
+    
+Route::get('/', [ArticlesController::class, 'index'])
     ->name('articles.index');
 
 Route::get('/articles/{article}', [ArticlesController::class, 'show'])
@@ -37,4 +38,17 @@ Route::put('/articles/{article}', [ArticlesController::class, 'update'])
 Route::delete('/articles/{article}', [ArticlesController::class, 'destroy'])
     ->name('articles.destroy');
 
-Route::redirect('/', '/articles');
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/premium', function () {
+    return view('main/premium');
+}) ->name('premium');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
