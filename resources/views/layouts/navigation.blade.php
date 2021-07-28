@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-12 sm:-my-px sm:ml-10 sm:flex">
                 <nav>
                     <x-nav-link :href="route('articles.index')" :active="request()->routeIs('index')">
                         {{ __('Home') }}
