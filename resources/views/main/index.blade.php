@@ -14,7 +14,7 @@
 
 
             @if (request()->routeIs('articles.authorshow'))
-                <a href="#" class="ml-2 ">Edit article</a>
+                <a href="{{route('articles.edit', $article)}}" class="ml-2 ">Edit article</a>
             @endif
 
 
@@ -26,7 +26,7 @@
 
     @if (Auth::user()->author)
     <div>
-    <button class="fixed bottom-5 right-5 bg-yellow-500 rounded-full p-auto w-20 h-20 hover:bg-yellow-400"><a class="text-3xl" href="">+</a></button>
+    <button class="fixed bottom-5 right-5 bg-yellow-500 rounded-full p-auto w-20 h-20 hover:bg-yellow-400"><a class="text-3xl" href="{{route('articles.create')}}">+</a></button>
     </div>
     @endif  
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreArticleRequest;
+use App\Models\Category;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,11 +40,43 @@ class ArticlesController extends Controller
         }
     }
 
-    public function edit(){
-
+    public function edit(Article $article){
+        return view('admin/edit', ['article' => $article, 'categories' => Category::all(), 'selectedCategories' => $article->load('categories')->pluck('id')->toArray()]); 
     }
 
     public function create(){
+        return view('admin/create', ['categories' => Category::all()]); 
+    }
 
+    
+    public function store(){
+ 
+        Article::create($this->validateArticle());
+
+        return view('articles/index', ['articles' => Article::all()]);
+    }
+
+    public function update(Article $articles, StoreArticleRequest $request){
+        $validated = $request->validated();
+        dd($validated);
+        $articles->update($validated);
+
+        return view('articles/index', ['articles' => Article::all()]);
+        
+    }
+
+    public function destroy(Article $article){
+
+        $article->delete();
+        $articles = Article::all();
+        return view('Article.index', ['articles' => $articles]); 
+
+    }
+
+    public function validateArticle()
+    {
+        return request()->validate([
+
+        ]);
     }
 }

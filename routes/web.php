@@ -18,14 +18,14 @@ use App\Http\Controllers\UsersController;
 Route::get('/articles/author', [ArticlesController::class, 'authorshow'])
     ->name('articles.authorshow');
 
+    Route::get('/articles/create', [ArticlesController::class, 'create'])
+    ->name('articles.create');
+
 Route::get('/', [ArticlesController::class, 'index'])
     ->name('articles.index');
 
 Route::get('/articles/{article}', [ArticlesController::class, 'show'])
     ->name('articles.show');
-
-Route::get('/articles/create', [ArticlesController::class, 'create'])
-    ->name('articles.create');
 
 Route::post('/articles', [ArticlesController::class, 'store'])
     ->name('articles.store');
