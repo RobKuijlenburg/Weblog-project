@@ -11,16 +11,25 @@
             <img class="index_img m-auto" src="{{$article->img}}" alt="">
             <p class="mt-2 mb-2 h-10 pl-4 pr-4">{{$article->excerpt}}</p>
             <a class="mt-2 mb-5" href="{{route('articles.show', $article)}}">read more -></a>
+
+
+            @if (request()->routeIs('articles.authorshow'))
+                <a href="#" class="ml-2 ">Edit article</a>
+            @endif
+
+
     </div>
 @endforeach
 </div>
 
 @auth
-<div>
+
     @if (Auth::user()->author)
-    <button class="fixed float-right inset-10 bg-yellow-500 rounded-full p-auto w-20 h-20"><a class="text-3xl" href="">+</a></button>
+    <div>
+    <button class="fixed bottom-5 right-5 bg-yellow-500 rounded-full p-auto w-20 h-20 hover:bg-yellow-400"><a class="text-3xl" href="">+</a></button>
+    </div>
     @endif  
-</div>
+
 @endauth
 
 @endsection('content')

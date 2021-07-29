@@ -15,9 +15,9 @@ use App\Http\Controllers\UsersController;
 |
 */
 
-Route::get('/articles', [ArticlesController::class, 'index'])
-    ->name('articles.index');
-    
+Route::get('/articles/author', [ArticlesController::class, 'authorshow'])
+    ->name('articles.authorshow');
+
 Route::get('/', [ArticlesController::class, 'index'])
     ->name('articles.index');
 

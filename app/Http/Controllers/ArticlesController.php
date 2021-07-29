@@ -27,4 +27,22 @@ class ArticlesController extends Controller
         } 
         return view('main/show', ['article' => $article]);
     }
+
+    public function authorshow(){
+        if (Auth::user()->author) {
+    
+            return view('main/index', ['articles' => Article::where('user_id', Auth::user()->id)->get()]);
+        } 
+        else {
+            return view('main/index', ['articles' => Article::all()]);
+        }
+    }
+
+    public function edit(){
+
+    }
+
+    public function create(){
+
+    }
 }

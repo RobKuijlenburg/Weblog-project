@@ -43,6 +43,15 @@
                         {{ __('Register') }}
                     </x-nav-link>
                     @endauth
+                    @auth
+
+                    @if (Auth::user()->author)
+                    <x-nav-link :href="route('articles.authorshow')" :active="request()->routeIs('articles.authorshow')" class="mr-9">
+                        {{ __('Edit') }}
+                    </x-nav-link>
+                    @endif  
+
+                    @endauth
                 </nav>
   
                 </div>
