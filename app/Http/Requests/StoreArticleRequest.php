@@ -24,7 +24,12 @@ class StoreArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|max:30',
+            'slug' => 'required|max:20',
+            'excerpt' => 'required|max: 255',
+            'body' => 'required',
+            'img' => '',
+            'premium' => 'required'
         ];
     }
 }

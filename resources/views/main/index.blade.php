@@ -3,8 +3,8 @@
 
 
 @section('content')
-
-<div class="article_container">
+<div class="flex">
+<div class="article_container w-4/5">
 @foreach ($articles as $article)
     <div class="w-1/5 text-center content-center justify-center rounded-xl shadow-lg h-3/5 m-2">
         <h1 class="text-2xl font-semibold"> {{$article->title}} </h1>
@@ -20,7 +20,30 @@
 
     </div>
 @endforeach
+
 </div>
+
+<div class="fixed shadow-xl card my-4 top-30 right-5 mx-5 my-10 py-10 px-10 rounded-xl w-1/5">
+        <h5 class="card-header">Search</h5>
+        <form class="card-body" action="/search" method="POST" role="search">
+            {{ csrf_field() }}
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." name="q">
+                <div class="flex flex-wrap space-x-4 m-1">
+        @foreach ($categories as $category)
+            <div class="border-2 mx-2 my-1 p-1">
+            <input type="checkbox" name="$categories[]">
+            <label for="{{$category->name}}">{{$category->name}}</label>
+            </div>
+        @endforeach
+        </div>
+                <span class="input-group-btn">
+            <button class="btn btn-secondary" type="submit">Go!</button>
+          </span>
+            </div>
+        </form>
+    </div>
+    </div>
 
 @auth
 

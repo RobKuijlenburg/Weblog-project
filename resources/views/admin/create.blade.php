@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex justify-center h-content w-100 mt-10">
-<form class="space-y-5 shadow-2xl rounded-xl m-5" action="" method="post">
+<form class="space-y-5 shadow-2xl rounded-xl m-5" action="{{route('articles.store')}}" method="post">
     @csrf
     <div class="m-10">
     <div>
@@ -31,6 +31,10 @@
         <input type="checkbox" name="categories[]" value="{{$category->id}}" >
         <label for="{{$category->name}}">{{$category->name}}</label>
     @endforeach
+    <div>
+        <input type="hidden" name="premium" id="premium" value="false">
+        <input type="checkbox" name="premium" id="premium" value="true">
+    </div>
     <div class="m-5">
         <input class="p-2 shadow-2xl rounded-xl hover:bg-black hover:text-white" type="submit" value="submit">
     </div>

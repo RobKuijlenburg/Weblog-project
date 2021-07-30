@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex justify-center h-content w-100 mt-10">
-<form class="space-y-5 shadow-2xl rounded-xl m-5" action="/articles/{{$article->id}}" method="post">
+<form class="space-y-5 shadow-2xl rounded-xl m-5 w-4/5 justify-center" action="{{route('articles.update', $article->id)}}" method="post">
     @csrf
     @method('PUT')
     <div class="m-10">
@@ -30,7 +30,7 @@
     </div>
     <div>
         <h2>Categories</h2>
-        <div class="space-x-2">
+        <div class="space-x-2 flex flex-wrap w-2/5">
         @foreach ($categories as $category)
 
             <input type="checkbox" name="$categories[]" value="{{$category->id}}" 
@@ -43,10 +43,22 @@
         @endforeach
         </div>
     </div>
+    <div>
+        <input type="hidden" name="premium" id="premium" value="false">
+        <input type="checkbox" name="premium" id="premium" value="true" @if ($article->premium)
+                    checked
+                @endif
+            >
+    </div>
     <div class="m-5">
         <input class="p-2 shadow-2xl rounded-xl hover:bg-black hover:text-white" type="submit" value="submit">
     </div>
     </div>
     </form>
+    <form action="{{route('articles.destroy', $article->id)}}" method="post">
+                @csrf
+                @method('DELETE')
+            <button class="fixed bottom-5 right-5 bg-yellow-500 rounded-full p-auto w-20 h-20 hover:bg-yellow-400" type="submit">Delete</button>
+            </form>
 </div>
 @endsection

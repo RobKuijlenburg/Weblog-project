@@ -39,6 +39,9 @@ Route::put('/articles/{article}', [ArticlesController::class, 'update'])
 Route::delete('/articles/{article}', [ArticlesController::class, 'destroy'])
     ->name('articles.destroy');
 
+Route::post('/search', [ArticlesController::class, 'search'])
+    ->name('articles.search');
+
 Route::get('/premium', function () {
     return view('main/premium');
 }) ->name('premium');
