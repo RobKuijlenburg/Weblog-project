@@ -16,9 +16,6 @@
                     <x-nav-link :href="route('articles.index')" :active="request()->routeIs('index')" class="mr-9">
                         {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('articles.index')" :active="request()->routeIs('index')" class="mr-9">
-                        {{ __('Search') }}
-                    </x-nav-link>
                     @auth
                     @if(!Auth::user()->premium)
                     <x-nav-link :href="route('premium')" :active="request()->routeIs('premium')" class="mr-9">

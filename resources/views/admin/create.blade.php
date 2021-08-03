@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex justify-center h-content w-100 mt-10">
-<form class="space-y-5 shadow-2xl rounded-xl m-5" action="{{route('articles.store')}}" method="post">
+<form class="space-y-5 shadow-2xl rounded-xl m-5" action="{{route('articles.store')}}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="m-10">
     <div>
@@ -25,7 +25,7 @@
     </div>
     <div>
         <h2>Images</h2>
-        <input type="file" name="img" id="img" value="">
+        <input type="file" name="img" id="img">
     </div>
     @foreach ($categories as $category)
         <input type="checkbox" name="categories[]" value="{{$category->id}}" >

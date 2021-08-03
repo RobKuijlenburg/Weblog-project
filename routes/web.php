@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\UsersController;
 
 /*
@@ -18,9 +19,9 @@ use App\Http\Controllers\UsersController;
 Route::get('/articles/author', [ArticlesController::class, 'authorshow'])
     ->name('articles.authorshow');
 
-    Route::get('/articles/create', [ArticlesController::class, 'create'])
+Route::get('/articles/create', [ArticlesController::class, 'create'])
     ->name('articles.create');
-
+   
 Route::get('/', [ArticlesController::class, 'index'])
     ->name('articles.index');
 
@@ -39,8 +40,11 @@ Route::put('/articles/{article}', [ArticlesController::class, 'update'])
 Route::delete('/articles/{article}', [ArticlesController::class, 'destroy'])
     ->name('articles.destroy');
 
-Route::post('/search', [ArticlesController::class, 'search'])
-    ->name('articles.search');
+Route::post('/searchText', [ArticlesController::class, 'searchText'])
+    ->name('articles.searchText');
+
+Route::post('/searchCategories', [ArticlesController::class, 'searchCategories'])
+    ->name('articles.searchCategories');
 
 Route::get('/premium', function () {
     return view('main/premium');
@@ -48,6 +52,12 @@ Route::get('/premium', function () {
 
 Route::put('/user/{user}/premium', [UsersController::class, 'setPremium'])
     ->name('user.updatePremium');
+
+Route::post('/comments', [CommentsController::class, 'store'])
+    ->name('comments.store');
+
+Route::delete('/comments/{comment}', [CommentsController::class, 'destroy'])
+    ->name('comments.destroy');
 
 
 Route::get('/dashboard', function () {

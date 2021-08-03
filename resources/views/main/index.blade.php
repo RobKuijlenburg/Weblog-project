@@ -21,18 +21,32 @@
     </div>
 @endforeach
 
+
+
 </div>
 
 <div class="fixed shadow-xl card my-4 top-30 right-5 mx-5 my-10 py-10 px-10 rounded-xl w-1/5">
         <h5 class="card-header">Search</h5>
-        <form class="card-body" action="/search" method="POST" role="search">
+        <form class="card-body" action="/searchText" method="POST" role="search">
             {{ csrf_field() }}
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search for..." name="q">
                 <div class="flex flex-wrap space-x-4 m-1">
+        </div>
+                <span class="input-group-btn">
+            <button class="btn btn-secondary" type="submit">Go!</button>
+          </span>
+            </div>
+        </form>
+
+
+        <form class="card-body" action="/searchCategories" method="POST" role="search">
+            {{ csrf_field() }}
+            <div class="input-group">
+                <div class="flex flex-wrap space-x-4 m-1">
         @foreach ($categories as $category)
             <div class="border-2 mx-2 my-1 p-1">
-            <input type="checkbox" name="$categories[]">
+            <input type="checkbox" name="categories[]" value="{{$category->id}}"  @if ($categories == 'selected') checked @endif>
             <label for="{{$category->name}}">{{$category->name}}</label>
             </div>
         @endforeach

@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArticleRequest;
 use App\Models\Category;
 use App\Models\Article;
+use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
 class ArticlesController extends Controller
 {
-    public function index(Article $article){
+    public function index(){
         
-        return view('main/index', ['articles' => Article::all(), 'categories' => Category::all(), 'selectedCategories' => $article->load('categories')->pluck('id')->toArray()]);
+        return view('main/index', ['articles' => Article::all(), 'categories' => Category::all()]);
     
     }
 
@@ -28,13 +30,14 @@ class ArticlesController extends Controller
                 return view('main/premium');
             }
         } 
+    
         return view('main/show', ['article' => $article]);
     }
 
     public function authorshow(){
         if (Auth::user()->author) {
     
-            return view('main/index', ['articles' => Article::where('user_id', Auth::user()->id)->get()]);
+            return view('main/index', ['articles' => Article::where('user_id', Auth::user()->id)->get(), 'categories' => Category::all()]);
         } 
         else {
             return view('main/index', ['articles' => Article::all()]);
@@ -59,10 +62,15 @@ class ArticlesController extends Controller
         $validated['user_id'] = Auth::user()->id;
 
         $validated['premium'] = $validated['premium'] ? true : false;
+    
+        $path = $request->file('img')->store('img');
+
         Article::create($validated);
 
-        return view('main/index', ['articles' => Article::all()]);
+        return view('main/index', ['articles' => Article::all(), 'categories' => Category::all(), $path]);
     }
+
+
 
     public function update(Article $article, StoreArticleRequest $request){
         $validated = $request->validated();
@@ -79,32 +87,36 @@ class ArticlesController extends Controller
         $article->comments()->delete();
         $article->delete();
         $articles = Article::all();
-        return view('main.index', ['articles' => $articles]); 
+        return view('main.index', ['articles' => $articles, 'categories' => Category::all()]); 
 
     }
 
-    public function search(Request $request)
+    public function searchText(Request $request)
     {
 
-      
-        
-        // dd($categories);
         
         $key = trim($request->get('q'));
 
-        // $articles = Article::query()
-        //     ->where('title', 'like', "%{$key}%")
-        //     ->wherePivot('article_categories', [1, 2])
-        //     ->get();
+        $articles = Article::query()
+            ->where('title', 'like', "%{$key}%")
+
+            ->get();
+    
+
+
+    //   inhoud van de cards laad niet moet nog naar gekeken worden
+        return view('main/index', ['articles' => $articles, 'categories' => Category::all(), 'selectedCategories' => $request->categories]);
+    }
+
+    public function searchCategories(Request $request)
+    {
     
         $articles = Category::where('id', $request->categories)
-        ->with(['articles' => function($query) use ($key){
-            $query->where('title', 'like', '%'.$key.'%');
-        }])->get();
+        ->with(['articles'])->get();
 
-        //  dd($categories);
+
     //   inhoud van de cards laad niet moet nog naar gekeken worden
-        return view('main/index', ['articles' => $articles, 'categories' => Category::all(), 'selectedCategories' => $article->load('categories')->pluck('id')->toArray()]);
+        return view('main/index', ['articles' => $articles[0]->articles, 'categories' => Category::all(), 'selectedCategories' => $request->categories]);
     }
 
 }
