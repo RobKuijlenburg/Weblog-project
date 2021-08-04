@@ -11,7 +11,7 @@
 @endforeach
 </div>
 
-<img class="mb-4" src="{{$article->img}}" alt="">
+<img class="mb-4" src="{{asset('storage/'.$article->img)}}" alt="">
 <p>{{$article->body}}</p>
 </div>
 

@@ -8,7 +8,11 @@
 @foreach ($articles as $article)
     <div class="w-1/5 text-center content-center justify-center rounded-xl shadow-lg h-3/5 m-2">
         <h1 class="text-2xl font-semibold"> {{$article->title}} </h1>
+            @if (str_starts_with($article->img, 'http'))
             <img class="index_img m-auto" src="{{$article->img}}" alt="">
+            @else
+            <img class="index_img m-auto" src="{{asset('storage/'.$article->img)}}" alt="">
+            @endif
             <p class="mt-2 mb-2 h-10 pl-4 pr-4">{{$article->excerpt}}</p>
             <a class="mt-2 mb-5" href="{{route('articles.show', $article)}}">read more -></a>
 

@@ -25,7 +25,7 @@
     </div>
     <div>
         <h2>Images</h2>
-        <input type="file" name="img" id="img">
+        <input type="file" name="img" id="img" accept="image/*">
     </div>
     @foreach ($categories as $category)
         <input type="checkbox" name="categories[]" value="{{$category->id}}" >

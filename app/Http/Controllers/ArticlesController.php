@@ -9,7 +9,7 @@ use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Storage;
 
 class ArticlesController extends Controller
 {
@@ -62,12 +62,13 @@ class ArticlesController extends Controller
         $validated['user_id'] = Auth::user()->id;
 
         $validated['premium'] = $validated['premium'] ? true : false;
+        $path = Storage::putFile('public', $request->file('img'));
     
-        $path = $request->file('img')->store('img');
-
+        $validated['img'] = $path;
+    
         Article::create($validated);
 
-        return view('main/index', ['articles' => Article::all(), 'categories' => Category::all(), $path]);
+        return view('main/index', ['articles' => Article::all(), 'categories' => Category::all()]);
     }
 
 
@@ -83,7 +84,7 @@ class ArticlesController extends Controller
     }
 
     public function destroy(Article $article){
-
+        Storage::delete($article->img);
         $article->comments()->delete();
         $article->delete();
         $articles = Article::all();
@@ -102,9 +103,6 @@ class ArticlesController extends Controller
 
             ->get();
     
-
-
-    //   inhoud van de cards laad niet moet nog naar gekeken worden
         return view('main/index', ['articles' => $articles, 'categories' => Category::all(), 'selectedCategories' => $request->categories]);
     }
 
@@ -114,8 +112,6 @@ class ArticlesController extends Controller
         $articles = Category::where('id', $request->categories)
         ->with(['articles'])->get();
 
-
-    //   inhoud van de cards laad niet moet nog naar gekeken worden
         return view('main/index', ['articles' => $articles[0]->articles, 'categories' => Category::all(), 'selectedCategories' => $request->categories]);
     }
 
