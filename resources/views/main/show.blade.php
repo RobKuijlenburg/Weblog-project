@@ -10,8 +10,11 @@
 <p class="mr-3">{{$category->name}}</p>
 @endforeach
 </div>
-
+@if (str_starts_with($article->img, 'http'))
+<img class="mb-4" src="{{$article->img}}" alt="">
+@else
 <img class="mb-4" src="{{asset('storage/'.$article->img)}}" alt="">
+@endif
 <p>{{$article->body}}</p>
 </div>
 

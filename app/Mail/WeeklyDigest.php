@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Article;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,6 +12,8 @@ class WeeklyDigest extends Mailable
 {
     use Queueable, SerializesModels;
 
+
+    public $articles;
     /**
      * Create a new message instance.
      *
@@ -18,7 +21,7 @@ class WeeklyDigest extends Mailable
      */
     public function __construct()
     {
-        //
+        $this->articles = Article::latest()->take(10)->get();
     }
 
     /**
@@ -28,6 +31,7 @@ class WeeklyDigest extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->from('weekly@example.com', 'Example')
+                    ->view('emails.weeklydigest');
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\WeeklyDigestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,8 @@ Route::post('/comments', [CommentsController::class, 'store'])
 Route::delete('/comments/{comment}', [CommentsController::class, 'destroy'])
     ->name('comments.destroy');
 
+Route::get('/mailables', [WeeklyDigestController::class, 'index'])
+    ->name('mailables.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
