@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\WeeklyDigestController;
+use App\Jobs\ProcessWeeklyDigest;
+use App\Mail\WeeklyDigest;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,7 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('weekly:update')->weeklyOn(1, '9:00');
     }
 
     /**
